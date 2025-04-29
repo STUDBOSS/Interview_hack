@@ -1,8 +1,8 @@
 # Uses Gemini 2.0 Flash API for generating interview answers based on resume
 
-import speech_recognition as sr
 import requests
 import PyPDF2
+import caption_reader
 
 # Replace with your actual Gemini API key
 GEMINI_API_KEY = "AIzaSyB9KevTmNEZHpHv9oXSN9tYJ34CfzJniwo"
@@ -48,25 +48,19 @@ def read_resume(file_path):
                 text += page.extract_text()
     return text
 
-# Listen for voice input
-def listen_for_caption():
-    recognizer = sr.Recognizer()
-    microphone = sr.Microphone()
-
-    print("🎤 Listening for your question...")
-    with microphone as source:
-        recognizer.adjust_for_ambient_noise(source)
-        audio = recognizer.listen(source)
-
-    try:
-        caption = recognizer.recognize_google(audio)
-        print(f"🗣️ Question: {caption}")
-        return caption
-    except sr.UnknownValueError:
-        print("❌ Could not understand the audio.")
-    except sr.RequestError as e:
-        print(f"❌ Could not request results; {e}")
-    return None
+# Callback function to process new captions
+def process_caption(caption_text, resume_text):
+    print(f"🗣️ Question: {caption_text}")
+    prompt = (
+        f"You are preparing interview answers based on the following resume:\n\n"
+        f"{resume_text}\n\n"
+        f"Now answer this interview question:\n{caption_text}"
+    )
+    response = ask_gemini(prompt)
+    if response:
+        print(f"\n🤖 Gemini's Answer: {response}\n")
+    else:
+        print("⚠️ No response from Gemini.")
 
 # MAIN function
 def main():
@@ -79,20 +73,8 @@ def main():
         return
     print("✅ Resume processed. Ready for interview questions!\n")
 
-    while True:
-        caption = listen_for_caption()
-        if caption:
-            prompt = (
-                f"You are preparing interview answers based on the following resume:\n\n"
-                f"{resume_text}\n\n"
-                f"Now answer this interview question:\n{caption}"
-            )
-            response = ask_gemini(prompt)
-            if response:
-                print(f"\n🤖 Gemini's Answer: {response}\n")
-            else:
-                print("⚠️ No response from Gemini.")
-        print("🎤 Awaiting next question...\n")
+    # Start listening to Windows 11 Live Captions
+    caption_reader.live_caption_listener(lambda caption: process_caption(caption, resume_text))
 
 if __name__ == "__main__":
     main()
