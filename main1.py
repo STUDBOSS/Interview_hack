@@ -5,7 +5,7 @@ import docx
 from caption_reader import live_caption_listener
 
 # RapidAPI setup
-RAPIDAPI_KEY = "2da17ffaa1mshc9f9e89ffaad466p1514d5jsn230922b2d57c"
+RAPIDAPI_KEY = ""
 # RAPIDAPI_URL = "https://chatgpt-42.p.rapidapi.com/chat"
 RAPIDAPI_URL ="https://chatgpt-42.p.rapidapi.com/conversationgpt4"
 # Function to ask GPT for answers
