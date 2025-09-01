@@ -66,7 +66,7 @@
 # import requests
 # from PyPDF2 import PdfReader
 
-# RAPIDAPI_KEY = "2da17ffaa1mshc9f9e89ffaad466p1514d5jsn230922b2d57c"
+
 # RAPIDAPI_URL = "https://chatgpt-42.p.rapidapi.com/chat"
 
 # class ResumeAssistant:
