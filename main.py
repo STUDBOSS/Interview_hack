@@ -5,7 +5,7 @@ import PyPDF2
 import caption_reader
 
 # Replace with your actual Gemini API key
-GEMINI_API_KEY = "AIzaSyB9KevTmNEZHpHv9oXSN9tYJ34CfzJniwo"
+GEMINI_API_KEY = ""
 GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
 
 # Send prompt to Gemini API
@@ -64,7 +64,7 @@ def process_caption(caption_text, resume_text):
 
 # MAIN function
 def main():
-    resume_path = r"C:\VS Code\Interview\interview-hack-gpt\Mohit-Paradkar-B.E.-ArtificialIntelligence&MachineLearning-2025-03-16-06-58-00-916258.pdf"
+    resume_path = r"Your/resume/path"
 
     print("📚 Reading resume...")
     resume_text = read_resume(resume_path)
