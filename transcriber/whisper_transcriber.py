@@ -46,7 +46,7 @@
 
 # # Initialize OpenAI client with your API Key
 # client = openai.OpenAI(
-#     api_key="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"
+#     api_key=""
 # )
 
 # # Load Whisper model once
